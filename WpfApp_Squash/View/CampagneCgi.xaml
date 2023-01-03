@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="WpfApp_Squash.View.CampagneCgi"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:WpfApp_Squash.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" 
+             d:DesignWidth="622"
+             Style="{StaticResource Page_Style}">
+
+    <UserControl.DataContext>
+        <vm:CampagneCgiVM />
+    </UserControl.DataContext>
+
+    <Grid Margin="15">
+
+        <Border CornerRadius="0,20,20,0">
+            <Border.Background>
+                <ImageBrush ImageSource="/Images/img_customer.png" 
+                            Stretch="none" />
+            </Border.Background>
+        </Border>
+
+        <TextBlock Text="Campagnes de Tests :"
+                   Foreground="#DBDBDB"
+                   FontSize="18"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   FontFamily="/Fonts/#Rubik Medium"
+                   Margin="5,40,0,0" />
+
+        <TextBlock Text="{Binding CustomerID}"
+                   Foreground="#CED565"
+                   FontSize="12"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   FontFamily="/Fonts/#Rubik Medium"
+                   Margin="160,138,0,0" />
+
+
+        <Grid>
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <Style x:Key="hiddenStyle" TargetType="GridViewColumnHeader">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </Style>
+                </ResourceDictionary>
+            </Grid.Resources>
+            <StackPanel>
+                <ListView Margin="0,70,0,0" Name="ListViewCampagne" HorizontalAlignment="Left" VerticalAlignment="Top" Width="582" Height="490"
+                  Background="Transparent" Foreground="#DBDBDB" FontSize="12" FontFamily="/Fonts/#Rubik Regular" BorderThickness="0" >
+                    <ListView.View >
+                        <GridView ColumnHeaderContainerStyle="{StaticResource hiddenStyle}" >
+                            <GridViewColumn  Width="120" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate  >
+                                        <TextBlock  Grid.Column="0" Grid.Row="1" Text="{Binding}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate >
+                                        <Button Grid.Column="1"
+                                        Grid.Row="1"
+                                        x:Name="DownloadResult" 
+                                        Click="DownloadResult_Click"  
+                                        CommandParameter="{Binding}" 
+                                        Content="Télécharger"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</UserControl>
